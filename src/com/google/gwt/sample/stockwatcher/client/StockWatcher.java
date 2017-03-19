@@ -66,12 +66,10 @@ public class StockWatcher implements EntryPoint {
         dialogBox.setWidget(dialogVPanel);
 
         // Add a handler to close the DialogBox
-        closeButton.addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent event) {
-                dialogBox.hide();
-                sendButton.setEnabled(true);
-                sendButton.setFocus(true);
-            }
+        closeButton.addClickHandler(event -> {
+            dialogBox.hide();
+            sendButton.setEnabled(true);
+            sendButton.setFocus(true);
         });
 
         // Create a handler for the sendButton and nameField

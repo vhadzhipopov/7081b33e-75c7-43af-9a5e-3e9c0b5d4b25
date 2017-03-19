@@ -25,13 +25,7 @@
         <setting name="compilerMaxHeapSize" value="1024" />
         <setting name="gwtScriptOutputStyle" value="DETAILED" />
         <setting name="gwtSdkUrl" value="file://$USER_HOME$/gwt-2.8.0" />
-      </configuration>
-    </facet>
-    <facet type="IvyIDEA" name="IvyIDEA">
-      <configuration ivyFile="$MODULE_DIR$/ivy.xml" useProjectSettings="true" useCustomIvySettings="true" ivySettingsFile="" onlyResolveSelectedConfigs="false">
-        <propertiesSettings>
-          <propertiesFiles includeProjectLevelPropertiesFiles="true" />
-        </propertiesSettings>
+        <setting name="webFacet" value="Web" />
       </configuration>
     </facet>
   </component>
@@ -48,49 +42,13 @@
           <root url="jar://$USER_HOME$/gwt-2.8.0/gwt-user.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="gwt-dev.jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/gwt-2.8.0/gwt-dev.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="validation-api-1.0.0.GA.jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/gwt-2.8.0/validation-api-1.0.0.GA.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="validation-api-1.0.0.GA-sources.jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/gwt-2.8.0/validation-api-1.0.0.GA-sources.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/gwt-2.8.0/gwt-user.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="library" name="gwt-user" level="project" />
-    <orderEntry type="library" name="org.springframework.boot:spring-boot-antlib:1.5.2.RELEASE" level="project" />
-    <orderEntry type="library" name="lib-compile" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="lib-runtime" level="project" />
-    <orderEntry type="module-library" scope="RUNTIME">
-      <library name="src-root">
-        <CLASSES />
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/src" />
-        </SOURCES>
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="ivy" level="project" />
   </component>
 </module>
