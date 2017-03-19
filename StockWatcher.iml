@@ -22,7 +22,16 @@
     </facet>
     <facet type="gwt" name="GWT">
       <configuration>
+        <setting name="compilerMaxHeapSize" value="1024" />
+        <setting name="gwtScriptOutputStyle" value="DETAILED" />
         <setting name="gwtSdkUrl" value="file://$USER_HOME$/gwt-2.8.0" />
+      </configuration>
+    </facet>
+    <facet type="IvyIDEA" name="IvyIDEA">
+      <configuration ivyFile="$MODULE_DIR$/ivy.xml" useProjectSettings="true" useCustomIvySettings="true" ivySettingsFile="" onlyResolveSelectedConfigs="false">
+        <propertiesSettings>
+          <propertiesFiles includeProjectLevelPropertiesFiles="true" />
+        </propertiesSettings>
       </configuration>
     </facet>
   </component>
@@ -70,15 +79,18 @@
       </library>
     </orderEntry>
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="module-library">
-      <library name="junit3">
-        <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/lib/junit.jar!/" />
-        </CLASSES>
+    <orderEntry type="library" name="gwt-user" level="project" />
+    <orderEntry type="library" name="org.springframework.boot:spring-boot-antlib:1.5.2.RELEASE" level="project" />
+    <orderEntry type="library" name="lib-compile" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="lib-runtime" level="project" />
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="src-root">
+        <CLASSES />
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/src" />
+        </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" name="gwt-user" level="project" />
   </component>
 </module>
