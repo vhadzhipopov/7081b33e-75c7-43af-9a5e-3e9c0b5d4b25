@@ -15,27 +15,34 @@ public class Currency implements IsSerializable {
     public Currency() {
     }
 
+    public Currency(String symbol) {
+        this.symbol = symbol;
+    }
+
     public String getSymbol() {
         return symbol;
     }
 
-    public void setSymbol(String symbol) {
+    public Currency setSymbol(String symbol) {
         this.symbol = symbol;
+        return this;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public Currency setPrice(BigDecimal price) {
         this.price = price;
+        return this;
     }
 
     public BigDecimal getPriceLastMonth() {
         return priceLastMonth;
     }
 
-    public void setPriceLastMonth(BigDecimal priceLastMonth) {
+    public Currency setPriceLastMonth(BigDecimal priceLastMonth) {
         this.priceLastMonth = priceLastMonth;
+        return this;
     }
 }

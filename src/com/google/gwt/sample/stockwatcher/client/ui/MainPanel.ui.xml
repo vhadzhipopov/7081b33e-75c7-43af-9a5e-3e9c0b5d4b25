@@ -1,0 +1,37 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:c="urn:import:com.google.gwt.sample.stockwatcher.client.ui.component">
+    <!-- import for resources bundle -->
+    <ui:with type="com.google.gwt.sample.stockwatcher.client.resource.ApplicationResources"
+             field="res"/>
+
+    <g:DockLayoutPanel>
+        <!-- Top panel -->
+        <g:north size="250">
+            <g:HTMLPanel>
+                <h1>
+                    <g:InlineLabel text="Hello"/>
+                </h1>
+                <!-- main toolbox -->
+                <g:FlowPanel styleName="{res.style.currencyPanel}">
+                    <g:TextBox ui:field="textBox"/>
+                    <c:ImageButton resource="{res.addIcon}" styleName="{res.style.sendButton}"
+                                   text="Add" ui:field="addButton"/>
+                    <c:ImageButton resource="{res.clearIcon}" styleName="{res.style.sendButton}"
+                                   text="Clear" ui:field="clearButton"/>
+                    <c:ImageButton resource="{res.loadIcon}" styleName="{res.style.sendButton}"
+                                   text="Load" ui:field="loadButton"/>
+                </g:FlowPanel>
+            </g:HTMLPanel>
+        </g:north>
+
+        <g:center>
+            <g:ScrollPanel>
+                <g:FlowPanel ui:field="currencyPanel">
+                </g:FlowPanel>
+            </g:ScrollPanel>
+        </g:center>
+
+    </g:DockLayoutPanel>
+</ui:UiBinder> 

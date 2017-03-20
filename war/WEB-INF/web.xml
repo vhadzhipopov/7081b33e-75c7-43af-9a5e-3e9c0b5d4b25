@@ -8,17 +8,27 @@
     <!-- Servlets -->
     <servlet>
         <servlet-name>greetServlet</servlet-name>
-        <servlet-class>com.google.gwt.sample.stockwatcher.server.CurrencyServiceImpl</servlet-class>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <init-param>
+            <param-name>contextClass</param-name>
+            <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+        </init-param>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>com.google.gwt.sample.stockwatcher.server.Application</param-value>
+        </init-param>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>greetServlet</servlet-name>
-        <url-pattern>/stockwatcher/greet</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
     <!-- Default page to serve -->
     <welcome-file-list>
-        <welcome-file>StockWatcher.html</welcome-file>
+        <welcome-file>GwtWebApp.html</welcome-file>
     </welcome-file-list>
 
 </web-app>
