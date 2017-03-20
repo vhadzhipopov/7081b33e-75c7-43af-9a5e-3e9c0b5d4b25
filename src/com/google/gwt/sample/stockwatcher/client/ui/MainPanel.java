@@ -11,14 +11,11 @@ import com.google.gwt.sample.stockwatcher.client.model.ModelHandler;
 import com.google.gwt.sample.stockwatcher.client.ui.component.ImageButton;
 import com.google.gwt.sample.stockwatcher.client.ui.schedule.ReloadCurrencyListCommand;
 import com.google.gwt.sample.stockwatcher.shared.Currency;
+import com.google.gwt.sample.stockwatcher.shared.FieldVerifier;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 
 import java.util.HashMap;
@@ -36,6 +33,8 @@ public class MainPanel extends Composite {
     ImageButton loadButton;
     @UiField
     TextBox textBox;
+    @UiField
+    Label errorLabel;
     @UiField
     FlowPanel currencyPanel;
 
@@ -73,18 +72,24 @@ public class MainPanel extends Composite {
     }
 
     public void addCurrencyToPanel(Currency currency) {
-        if (currencyWidgets.get(currency.getSymbol()) == null) {
-            // create a Currency
-            CurrencyWidget w = new CurrencyWidget(currency, eventBus);
-            // add it to panel
-            currencyPanel.add(w);
-            // keep a reference of the widget for later usage (see
-            // removeCurrencyFromPanel)
-            currencyWidgets.put(currency.getSymbol(), w);
-        } else {
-            // some error handling code here
-            Window.alert("Already existing Currency : " + currency.getSymbol());
+        errorLabel.setText("");
+        if (!FieldVerifier.isValidSymbol(currency.getSymbol())) {
+            errorLabel.setText("Name must be max 4 characters long");
+            return;
         }
+
+        if (currencyWidgets.get(currency.getSymbol()) != null) {
+            errorLabel.setText("Already existing Currency : " + currency.getSymbol());
+            return;
+        }
+
+        // create a Currency
+        CurrencyWidget w = new CurrencyWidget(currency, eventBus);
+        // add it to panel
+        currencyPanel.add(w);
+        // keep a reference of the widget for later usage (see
+        // removeCurrencyFromPanel)
+        currencyWidgets.put(currency.getSymbol(), w);
     }
 
     public void removeCurrencyFromPanel(Currency currency) {

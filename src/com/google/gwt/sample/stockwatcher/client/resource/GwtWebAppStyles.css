@@ -1,31 +1,20 @@
-.simpleText {
-    font-family: arial, sans-serif;
-    font-weight: bold;
-    font-size: 1em;
-    padding: 2px;
-}
-
-.currencyblock {
+.currencyBlock {
     position: relative;
     float: center;
-    margin: 20px;
     border-radius: 10px;
     background: none repeat scroll 0 0 #FAF9F5;
-    margin-left: auto;
     padding: 20px;
-    margin-right: auto;
+    margin: 20px auto;
     width: 50%;
 }
 
 .currencyPanel {
     position: relative;
     float: center;
-    margin: 20px;
     border-radius: 10px;
     background: none repeat scroll 0 0 #E5ECF9;
-    margin-left: auto;
     padding: 20px;
-    margin-right: auto;
+    margin: 20px auto;
     width: 50%;
 }
 
@@ -67,4 +56,8 @@
 .sendButton:focus {
     border: 1px solid #4D90FE;
     outline: medium none;
+}
+
+.errorLabel {
+    color: red;
 }

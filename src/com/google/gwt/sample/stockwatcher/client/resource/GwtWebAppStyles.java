@@ -10,13 +10,13 @@ import com.google.gwt.resources.client.CssResource;
  */
 public interface GwtWebAppStyles extends CssResource {
 
-    String simpleText();
-
-    String currencyblock();
+    String currencyBlock();
 
     String currencyPanel();
 
     String currencyText();
 
     String sendButton();
+
+    String errorLabel();
 }

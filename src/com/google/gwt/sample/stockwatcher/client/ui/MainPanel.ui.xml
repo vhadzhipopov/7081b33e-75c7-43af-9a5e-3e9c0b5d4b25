@@ -13,6 +13,9 @@
                 <h1>
                     <g:InlineLabel text="Hello"/>
                 </h1>
+                <h3>
+                    <g:InlineLabel ui:field="errorLabel" styleName="{res.style.errorLabel}"/>
+                </h3>
                 <!-- main toolbox -->
                 <g:FlowPanel styleName="{res.style.currencyPanel}">
                     <g:TextBox ui:field="textBox"/>
@@ -34,4 +37,4 @@
         </g:center>
 
     </g:DockLayoutPanel>
-</ui:UiBinder> 
+</ui:UiBinder>

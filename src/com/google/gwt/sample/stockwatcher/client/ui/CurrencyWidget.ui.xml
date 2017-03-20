@@ -5,8 +5,8 @@
     <ui:with type="com.google.gwt.sample.stockwatcher.client.resource.ApplicationResources"
              field="res"/>
 
-    <g:FlowPanel styleName="{res.style.currencyblock}">
-        <g:InlineLabel styleName="{res.style.currencyText}" text="Test CURRENCY" ui:field="textBox"/>
+    <g:FlowPanel styleName="{res.style.currencyBlock}">
+        <g:InlineLabel styleName="{res.style.currencyText}" ui:field="textBox"/>
         <c:ImageButton resource="{res.deleteIcon}" styleName="{res.style.sendButton}" text="Delete" ui:field="deleteButton"/>
     </g:FlowPanel>
 </ui:UiBinder> 

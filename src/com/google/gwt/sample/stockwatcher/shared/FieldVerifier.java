@@ -2,13 +2,13 @@ package com.google.gwt.sample.stockwatcher.shared;
 
 /**
  * <p>
- * FieldVerifier validates that the name the user enters is valid.
+ * FieldVerifier validates that the symbol the user enters is valid.
  * </p>
  * <p>
  * This class is in the <code>shared</code> package because we use it in both
- * the client code and on the server. On the client, we verify that the name is
+ * the client code and on the server. On the client, we verify that the symbol is
  * valid before sending an RPC request so the user doesn't have to wait for a
- * network round trip to get feedback. On the server, we verify that the name is
+ * network round trip to get feedback. On the server, we verify that the symbol is
  * correct to ensure that the input is correct regardless of where the RPC
  * originates.
  * </p>
@@ -23,20 +23,17 @@ package com.google.gwt.sample.stockwatcher.shared;
 public class FieldVerifier {
 
     /**
-     * Verifies that the specified name is valid for our service.
+     * Verifies that the specified symbol is valid for our service.
      * <p>
-     * In this example, we only require that the name is at least four
+     * In this example, we only require that the symbol is at least four
      * characters. In your application, you can use more complex checks to ensure
      * that usernames, passwords, email addresses, URLs, and other fields have the
      * proper syntax.
      *
-     * @param name the name to validate
+     * @param symbol the symbol to validate
      * @return true if valid, false if invalid
      */
-    public static boolean isValidName(String name) {
-        if (name == null) {
-            return false;
-        }
-        return name.length() < 5;
+    public static boolean isValidSymbol(String symbol) {
+        return symbol != null && symbol.length() < 5;
     }
 }
