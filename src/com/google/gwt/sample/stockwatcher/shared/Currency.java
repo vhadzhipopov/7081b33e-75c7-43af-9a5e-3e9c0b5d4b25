@@ -2,12 +2,17 @@ package com.google.gwt.sample.stockwatcher.shared;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
 /**
  * Created by vhadzhipopov on 20.03.17.
  */
+
+@Entity
 public class Currency implements IsSerializable {
+    @Id
     private String symbol;
     private BigDecimal price;
     private BigDecimal priceLastMonth;

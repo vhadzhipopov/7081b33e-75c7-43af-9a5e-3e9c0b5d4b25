@@ -6,6 +6,12 @@
             <exclude module="spring-boot-starter-tomcat"/>
         </dependency>
         <dependency org="org.springframework.boot" name="spring-boot-starter-jetty" rev="${spring-boot.version}"/>
+        <dependency org="org.springframework.boot" name="spring-boot-starter-data-jpa" rev="${spring-boot.version}"/>
+        <dependency org="org.springframework.boot" name="spring-boot-starter-data-rest" rev="${spring-boot.version}"/>
+        <dependency org="org.postgresql" name="postgresql" rev="${postgresql.version}">
+            <exclude module="slf4j-simple"/>
+        </dependency>
+
         <dependency org="com.google.gwt.inject" name="gin" rev="${google-gin.version}"/>
     </dependencies>
 </ivy-module>

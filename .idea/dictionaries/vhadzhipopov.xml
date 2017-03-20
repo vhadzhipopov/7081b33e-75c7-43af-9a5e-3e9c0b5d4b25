@@ -2,6 +2,8 @@
   <dictionary name="vhadzhipopov">
     <words>
       <w>antlib</w>
+      <w>postgresql</w>
+      <w>stockwatcher</w>
     </words>
   </dictionary>
 </component>
