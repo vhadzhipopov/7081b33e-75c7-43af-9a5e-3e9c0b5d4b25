@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$">
+		<excludeFolder url="file://$MODULE_DIR$/war/WEB-INF/deploy"/>
+		<excludeFolder url="file://$MODULE_DIR$/war/gwtwebapp"/>
+	</contentEntry>
+	<lib name="gwt-user.jar" scope="COMPILE">
+		<srcroot url="jar://$USER_HOME$/gwt-2.8.0/gwt-user.jar!/"/>
+	</lib>
+	<levels>
+		<level name="gwt-user" value="project"/>
+		<level name="ivy" value="project"/>
+	</levels>
+</component>

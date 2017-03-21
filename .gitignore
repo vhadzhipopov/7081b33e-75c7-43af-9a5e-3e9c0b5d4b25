@@ -142,3 +142,5 @@ local.properties
 
 /war/stockwatcher
 /war/gwtwebapp/
+!/.project
+!/.classpath
