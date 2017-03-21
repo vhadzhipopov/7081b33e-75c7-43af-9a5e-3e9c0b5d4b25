@@ -72,7 +72,7 @@ public class WebAppController {
      */
     private void loadCurrencyList() {
         String pageBaseUrl = GWT.getHostPageBaseURL();
-        RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, pageBaseUrl + "/api/currencies/");
+        RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, pageBaseUrl + "/api/currencies");
         rb.setCallback(new RequestCallback() {
 
             public void onError(Request request, Throwable e) {

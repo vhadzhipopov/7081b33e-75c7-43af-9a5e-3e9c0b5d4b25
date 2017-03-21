@@ -84,12 +84,12 @@ public class MainPanel extends Composite {
         }
 
         // create a Currency
-        CurrencyWidget w = new CurrencyWidget(currency, eventBus);
+        CurrencyWidget widget = new CurrencyWidget(currency, eventBus);
         // add it to panel
-        currencyPanel.add(w);
+        currencyPanel.add(widget);
         // keep a reference of the widget for later usage (see
         // removeCurrencyFromPanel)
-        currencyWidgets.put(currency.getSymbol(), w);
+        currencyWidgets.put(currency.getSymbol(), widget);
     }
 
     public void removeCurrencyFromPanel(Currency currency) {

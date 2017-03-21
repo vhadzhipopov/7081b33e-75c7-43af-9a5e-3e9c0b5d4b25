@@ -1,17 +1,21 @@
 <ivy-module version="2.0">
     <info organisation="org.springframework.boot" module="spring-boot-sample-ant"/>
+    <configurations>
+        <conf name="default" description="jars used for compilation classpath"/>
+        <conf name="sources" description="Source jars"/>
+    </configurations>
     <dependencies>
-        <dependency org="org.springframework.boot" name="spring-boot-starter" rev="${spring-boot.version}"/>
-        <dependency org="org.springframework.boot" name="spring-boot-starter-web" rev="${spring-boot.version}">
+        <dependency org="org.springframework.boot" name="spring-boot-starter" rev="${spring-boot.version}" conf="default->default;sources->sources"/>
+        <dependency org="org.springframework.boot" name="spring-boot-starter-web" rev="${spring-boot.version}" conf="default->default;sources->sources">
             <exclude module="spring-boot-starter-tomcat"/>
         </dependency>
-        <dependency org="org.springframework.boot" name="spring-boot-starter-jetty" rev="${spring-boot.version}"/>
+        <dependency org="org.springframework.boot" name="spring-boot-starter-jetty" rev="${spring-boot.version}" conf="default->default;sources->sources"/>
         <dependency org="org.springframework.boot" name="spring-boot-starter-data-jpa" rev="${spring-boot.version}"/>
-        <dependency org="org.springframework.boot" name="spring-boot-starter-data-rest" rev="${spring-boot.version}"/>
-        <dependency org="org.postgresql" name="postgresql" rev="${postgresql.version}">
+        <dependency org="org.springframework.boot" name="spring-boot-starter-data-rest" rev="${spring-boot.version}" conf="default->default;sources->sources"/>
+        <dependency org="org.postgresql" name="postgresql" rev="${postgresql.version}" conf="default->default;sources->sources">
             <exclude module="slf4j-simple"/>
         </dependency>
-
         <dependency org="com.google.gwt.inject" name="gin" rev="${google-gin.version}"/>
+        <dependency org="com.zaxxer" name="HikariCP" rev="${hikari.version}"/>
     </dependencies>
 </ivy-module>
