@@ -3,6 +3,8 @@ package com.google.gwt.sample.stockwatcher.client.controller;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.http.client.*;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
 import com.google.gwt.sample.stockwatcher.client.event.AddCurrencyEvent;
 import com.google.gwt.sample.stockwatcher.client.event.DeleteAllCurrencyEvent;
 import com.google.gwt.sample.stockwatcher.client.event.DeleteCurrencyEvent;
@@ -36,12 +38,14 @@ public class WebAppController {
      * main panel UI
      */
     private MainPanel mainPanel;
+    private String hostPageBaseURL;
 
     @Inject
     public WebAppController(SimpleEventBus eventBus, ModelHandler modelHandler, MainPanel mainPanel) {
         this.eventBus = eventBus;
         this.modelHandler = modelHandler;
         this.mainPanel = mainPanel;
+        hostPageBaseURL = GWT.getHostPageBaseURL();
     }
 
     /**
@@ -71,8 +75,7 @@ public class WebAppController {
      * ask server for stored Currency list
      */
     private void loadCurrencyList() {
-        String pageBaseUrl = GWT.getHostPageBaseURL();
-        RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, pageBaseUrl + "/api/currencies");
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, hostPageBaseURL + "/api/currencies");
         builder.setCallback(new RequestCallback() {
 
             public void onError(Request request, Throwable e) {
@@ -109,8 +112,9 @@ public class WebAppController {
      * @param currency currency
      */
     private void deleteCurrency(Currency currency) {
-        this.modelHandler.remove(currency);
-        this.mainPanel.removeCurrencyFromPanel(currency);
+        currency.setVisible(false);
+        sendVisibilityUpdate(currency);
+
     }
 
     /**
@@ -119,8 +123,46 @@ public class WebAppController {
      * @param currencySymbol currency symbol
      */
     private void addCurrency(String currencySymbol) {
-        Currency currency = new Currency(currencySymbol);
-        this.modelHandler.add(currency);
-        this.mainPanel.addCurrencyToPanel(currency);
+        Currency currency = new Currency(currencySymbol, true, null, null, null);
+        sendVisibilityUpdate(currency);
+    }
+
+    private void sendVisibilityUpdate(final Currency currency) {
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.PUT, hostPageBaseURL + "/api/currencies");
+
+        //FIXME
+        JSONObject requestData = new JSONObject();
+        requestData.put("symbol", new JSONString(currency.getSymbol()));
+        requestData.put("visible", new JSONString(currency.getVisible().toString()));
+        builder.setRequestData(requestData.toString());
+        builder.setHeader("Content-Type", "application/json");
+
+
+        builder.setCallback(new RequestCallback() {
+
+            public void onError(Request request, Throwable e) {
+                // some error handling code here
+                Window.alert("error = " + e.getMessage());
+            }
+
+            public void onResponseReceived(Request request, Response response) {
+                Currency parsedCurrency = JsCurrency.parseData(response.getText());
+                if (200 == response.getStatusCode()) {
+                    if (parsedCurrency.getVisible()) {
+                        modelHandler.add(parsedCurrency);
+                        mainPanel.addCurrencyToPanel(parsedCurrency);
+                    } else {
+                        modelHandler.remove(parsedCurrency);
+                        mainPanel.removeCurrencyFromPanel(parsedCurrency);
+                    }
+                }
+            }
+        });
+        try {
+            builder.send();
+        } catch (RequestException e) {
+            e.printStackTrace();
+            Window.alert("error = " + e.getMessage());
+        }
     }
 }

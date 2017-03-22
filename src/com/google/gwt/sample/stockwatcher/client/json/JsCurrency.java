@@ -14,6 +14,11 @@ public class JsCurrency extends JavaScriptObject {
     protected JsCurrency() {
     }
 
+    public static Currency parseData(String json) {
+        JsCurrency jsCurrency = JsonUtils.safeEval(json);
+        return jsCurrency.toPojo();
+    }
+
     public static List<Currency> parseDataList(String json) {
         JsArray<JsCurrency> array = JsonUtils.safeEval(json);
         List<Currency> currencyList = new ArrayList<>();

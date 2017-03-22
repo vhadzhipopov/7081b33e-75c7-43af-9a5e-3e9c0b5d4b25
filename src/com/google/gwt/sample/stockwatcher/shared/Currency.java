@@ -1,7 +1,5 @@
 package com.google.gwt.sample.stockwatcher.shared;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -12,7 +10,7 @@ import java.util.Date;
  */
 
 @Entity
-public class Currency implements IsSerializable {
+public class Currency {
     @Id
     private String symbol;
 

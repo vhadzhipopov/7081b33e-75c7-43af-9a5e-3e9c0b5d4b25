@@ -83,6 +83,9 @@ public class MainPanel extends Composite {
             return;
         }
 
+        if (!currency.getVisible())
+            return;
+
         // create a Currency
         CurrencyWidget widget = new CurrencyWidget(currency, eventBus);
         // add it to panel
@@ -99,6 +102,8 @@ public class MainPanel extends Composite {
         currencyPanel.remove(currencyWidget);
 
         currencyWidgets.remove(currency.getSymbol());
+
+
     }
 
     public void removeAllCurrency() {

@@ -3,7 +3,10 @@ package com.google.gwt.sample.stockwatcher.server.web;
 import com.google.gwt.sample.stockwatcher.server.jpa.CurrencyRepository;
 import com.google.gwt.sample.stockwatcher.shared.Currency;
 import com.google.gwt.sample.stockwatcher.shared.ReferenceRates;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,7 +45,21 @@ public class CurrencyController {
             repository.save(currency);
         });
 
-        return ResponseEntity.ok(repository.findAll());
+        return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+    }
+
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/api/currencies", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Currency> update(@RequestBody Currency currency) {
+        return repository
+                .getBySymbol(currency.getSymbol())
+                .map(original -> {
+                    original.setVisible(currency.getVisible());
+                    repository.save(original);
+                    return new ResponseEntity<>(original, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
     }
 
     private String getAMonthAgo(ReferenceRates ratesToday) {
