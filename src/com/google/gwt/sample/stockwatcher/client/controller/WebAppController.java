@@ -7,7 +7,7 @@ import com.google.gwt.sample.stockwatcher.client.event.AddCurrencyEvent;
 import com.google.gwt.sample.stockwatcher.client.event.DeleteAllCurrencyEvent;
 import com.google.gwt.sample.stockwatcher.client.event.DeleteCurrencyEvent;
 import com.google.gwt.sample.stockwatcher.client.event.LoadEvent;
-import com.google.gwt.sample.stockwatcher.client.json.JsonHelper;
+import com.google.gwt.sample.stockwatcher.client.json.JsCurrency;
 import com.google.gwt.sample.stockwatcher.client.model.ModelHandler;
 import com.google.gwt.sample.stockwatcher.client.ui.MainPanel;
 import com.google.gwt.sample.stockwatcher.shared.Currency;
@@ -72,8 +72,8 @@ public class WebAppController {
      */
     private void loadCurrencyList() {
         String pageBaseUrl = GWT.getHostPageBaseURL();
-        RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, pageBaseUrl + "/api/currencies");
-        rb.setCallback(new RequestCallback() {
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, pageBaseUrl + "/api/currencies");
+        builder.setCallback(new RequestCallback() {
 
             public void onError(Request request, Throwable e) {
                 // some error handling code here
@@ -82,13 +82,13 @@ public class WebAppController {
 
             public void onResponseReceived(Request request, Response response) {
                 if (200 == response.getStatusCode()) {
-                    List<Currency> currencyList = JsonHelper.parseDataList(response.getText());
+                    List<Currency> currencyList = JsCurrency.parseDataList(response.getText());
                     reloadList(currencyList);
                 }
             }
         });
         try {
-            rb.send();
+            builder.send();
         } catch (RequestException e) {
             e.printStackTrace();
             Window.alert("error = " + e.getMessage());

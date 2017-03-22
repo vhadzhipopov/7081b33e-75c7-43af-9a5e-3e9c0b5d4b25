@@ -3,6 +3,8 @@ package com.google.gwt.sample.stockwatcher.client.ui;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.sample.stockwatcher.client.event.DeleteCurrencyEvent;
 import com.google.gwt.sample.stockwatcher.client.ui.component.ImageButton;
 import com.google.gwt.sample.stockwatcher.shared.Currency;
@@ -44,7 +46,17 @@ public class CurrencyWidget extends Composite {
         initWidget(uiBinder.createAndBindUi(this));
         this.currentCurrency = currency;
         // format display
-        textBox.setText(currency.getSymbol());
+        NumberFormat decimalFormat = NumberFormat.getFormat("0.##");
+        NumberFormat percentFormat = NumberFormat.getFormat("0.##%");
+        DateTimeFormat dateFormat = DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT);
+        String price = decimalFormat.format(currency.getPrice());
+        String percentChange = percentFormat.format((currency.getPrice() - currency.getPriceLastMonth()) / currency.getPriceLastMonth());
+        String date = dateFormat.format(currency.getLastUpdated());
+        textBox.setText(
+                currency.getSymbol() + ": Current  " + price
+                        + "HKD. Increase since last month " + percentChange
+                        + " Last updated " + date);
+
     }
 
     @UiHandler("deleteButton")
