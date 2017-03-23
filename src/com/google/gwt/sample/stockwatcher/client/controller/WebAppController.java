@@ -5,10 +5,7 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.http.client.*;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
-import com.google.gwt.sample.stockwatcher.client.event.AddCurrencyEvent;
-import com.google.gwt.sample.stockwatcher.client.event.DeleteAllCurrencyEvent;
-import com.google.gwt.sample.stockwatcher.client.event.DeleteCurrencyEvent;
-import com.google.gwt.sample.stockwatcher.client.event.LoadEvent;
+import com.google.gwt.sample.stockwatcher.client.event.*;
 import com.google.gwt.sample.stockwatcher.client.json.JsCurrency;
 import com.google.gwt.sample.stockwatcher.client.model.ModelHandler;
 import com.google.gwt.sample.stockwatcher.client.ui.MainPanel;
@@ -80,6 +77,7 @@ public class WebAppController {
                     List<Currency> currencyList = JsCurrency.parseDataList(response.getText());
                     modelHandler.reloadAll(currencyList);
                     mainPanel.reloadCurrencyList();
+                    eventBus.fireEvent(new ReloadedEvent(currencyList));
                 }
             }
         });

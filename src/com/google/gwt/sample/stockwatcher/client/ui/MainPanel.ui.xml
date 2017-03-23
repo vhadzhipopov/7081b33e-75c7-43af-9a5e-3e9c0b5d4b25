@@ -18,7 +18,7 @@
                 </h3>
                 <!-- main toolbox -->
                 <g:FlowPanel styleName="{res.style.currencyPanel}">
-                    <g:TextBox ui:field="textBox"/>
+                    <g:SuggestBox ui:field="suggestBox"/>
                     <c:ImageButton resource="{res.addIcon}" styleName="{res.style.sendButton}"
                                    text="Add" ui:field="addButton"/>
                     <c:ImageButton resource="{res.clearIcon}" styleName="{res.style.sendButton}"

@@ -7,6 +7,7 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.sample.stockwatcher.client.event.AddCurrencyEvent;
 import com.google.gwt.sample.stockwatcher.client.event.DeleteAllCurrencyEvent;
 import com.google.gwt.sample.stockwatcher.client.event.LoadEvent;
+import com.google.gwt.sample.stockwatcher.client.event.ReloadedEvent;
 import com.google.gwt.sample.stockwatcher.client.model.ModelHandler;
 import com.google.gwt.sample.stockwatcher.client.ui.component.ImageButton;
 import com.google.gwt.sample.stockwatcher.client.ui.schedule.ReloadCurrencyListCommand;
@@ -31,8 +32,8 @@ public class MainPanel extends Composite {
     ImageButton clearButton;
     @UiField
     ImageButton loadButton;
-    @UiField
-    TextBox textBox;
+    @UiField(provided = true)
+    SuggestBox suggestBox;
     @UiField
     Label errorLabel;
     @UiField
@@ -41,21 +42,29 @@ public class MainPanel extends Composite {
     private Map<String, CurrencyWidget> currencyWidgets;
     private SimpleEventBus eventBus;
     private ModelHandler modelHandler;
+    private MultiWordSuggestOracle oracle;
 
     @Inject
     public MainPanel(SimpleEventBus eventBus, ModelHandler modelHandler) {
         this.eventBus = eventBus;
+        this.modelHandler = modelHandler;
+        this.currencyWidgets = new HashMap<>();
+        this.oracle = new MultiWordSuggestOracle();
+        this.suggestBox = new SuggestBox(oracle);
+        this.eventBus.addHandler(ReloadedEvent.TYPE, event -> {
+            oracle.clear();
+            event.getCurrencyList().forEach(currency -> oracle.add(currency.getSymbol()));
+        });
+        this.suggestBox.addSelectionHandler(event -> onAddButtonClick(null));
         // init display
         initWidget(uiBinder.createAndBindUi(this));
-        this.currencyWidgets = new HashMap<>();
-        this.modelHandler = modelHandler;
     }
 
     @UiHandler("addButton")
     void onAddButtonClick(ClickEvent event) {
 
         // retrieve textbox text
-        String currencyText = textBox.getText();
+        String currencyText = suggestBox.getText();
 
         if (!FieldVerifier.isValidSymbol(currencyText)) {
             errorLabel.setText("Name must be 3 capital letters");
