@@ -52,10 +52,9 @@ public class CurrencyWidget extends Composite {
         String price = decimalFormat.format(currency.getPrice());
         String percentChange = percentFormat.format((currency.getPrice() - currency.getPriceLastMonth()) / currency.getPriceLastMonth());
         String date = dateFormat.format(currency.getLastUpdated());
-        textBox.setText(
-                currency.getSymbol() + ": Current  " + price
-                        + "HKD. Increase since last month " + percentChange
-                        + " Last updated " + date);
+        textBox.setText("1 " + currency.getSymbol() + " = " + price
+                + " HKD. Increase since last month " + percentChange
+                + " Last updated " + date);
 
     }
 
