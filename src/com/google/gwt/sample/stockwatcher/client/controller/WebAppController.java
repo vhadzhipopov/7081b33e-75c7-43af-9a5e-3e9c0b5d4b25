@@ -52,23 +52,16 @@ public class WebAppController {
      * Bind all events handler
      */
     public void bindHandlers() {
-        this.eventBus.addHandler(AddCurrencyEvent.TYPE, event -> addCurrency(event.getCurrencySymbol()));
+        this.eventBus.addHandler(AddCurrencyEvent.TYPE, event -> {
+            Currency currency = new Currency(event.getCurrencySymbol(), true, null, null, null);
+            sendVisibilityUpdate(currency);
+        });
 
         this.eventBus.addHandler(DeleteCurrencyEvent.TYPE, event -> deleteCurrency(event.getCurrency()));
 
-        this.eventBus.addHandler(DeleteAllCurrencyEvent.TYPE, event -> deleteAll());
+        this.eventBus.addHandler(DeleteAllCurrencyEvent.TYPE, event -> modelHandler.getAll().stream().filter(Currency::getVisible).forEach(this::deleteCurrency));
 
         this.eventBus.addHandler(LoadEvent.TYPE, event -> loadCurrencyList());
-    }
-
-    /**
-     * get currency list from model and reload UI
-     *
-     * @param list list of currencies
-     */
-    private void reloadList(List<Currency> list) {
-        this.modelHandler.reloadAll(list);
-        this.mainPanel.reloadCurrencyList();
     }
 
     /**
@@ -77,7 +70,6 @@ public class WebAppController {
     private void loadCurrencyList() {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, hostPageBaseURL + "/api/currencies");
         builder.setCallback(new RequestCallback() {
-
             public void onError(Request request, Throwable e) {
                 // some error handling code here
                 Window.alert("error = " + e.getMessage());
@@ -86,7 +78,8 @@ public class WebAppController {
             public void onResponseReceived(Request request, Response response) {
                 if (200 == response.getStatusCode()) {
                     List<Currency> currencyList = JsCurrency.parseDataList(response.getText());
-                    reloadList(currencyList);
+                    modelHandler.reloadAll(currencyList);
+                    mainPanel.reloadCurrencyList();
                 }
             }
         });
@@ -98,13 +91,6 @@ public class WebAppController {
         }
     }
 
-    /**
-     * delete all currency from model and UI
-     */
-    private void deleteAll() {
-        this.modelHandler.removeAll();
-        this.mainPanel.removeAllCurrency();
-    }
 
     /**
      * delete a currency (ui & model)
@@ -113,17 +99,6 @@ public class WebAppController {
      */
     private void deleteCurrency(Currency currency) {
         currency.setVisible(false);
-        sendVisibilityUpdate(currency);
-
-    }
-
-    /**
-     * create and add a currency with given label
-     *
-     * @param currencySymbol currency symbol
-     */
-    private void addCurrency(String currencySymbol) {
-        Currency currency = new Currency(currencySymbol, true, null, null, null);
         sendVisibilityUpdate(currency);
     }
 
@@ -139,7 +114,6 @@ public class WebAppController {
 
 
         builder.setCallback(new RequestCallback() {
-
             public void onError(Request request, Throwable e) {
                 // some error handling code here
                 Window.alert("error = " + e.getMessage());

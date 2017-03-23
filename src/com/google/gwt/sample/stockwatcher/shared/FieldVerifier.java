@@ -1,5 +1,7 @@
 package com.google.gwt.sample.stockwatcher.shared;
 
+import com.google.gwt.regexp.shared.RegExp;
+
 /**
  * <p>
  * FieldVerifier validates that the symbol the user enters is valid.
@@ -34,6 +36,6 @@ public class FieldVerifier {
      * @return true if valid, false if invalid
      */
     public static boolean isValidSymbol(String symbol) {
-        return symbol != null && symbol.length() < 5;
+        return symbol != null && RegExp.compile("[A-Z]{3}").exec(symbol) != null;
     }
 }

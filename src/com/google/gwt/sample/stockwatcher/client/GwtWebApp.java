@@ -3,6 +3,7 @@ package com.google.gwt.sample.stockwatcher.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.sample.stockwatcher.client.controller.WebAppController;
+import com.google.gwt.sample.stockwatcher.client.event.LoadEvent;
 import com.google.gwt.sample.stockwatcher.client.resource.ApplicationResources;
 import com.google.gwt.sample.stockwatcher.client.ui.MainPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -33,5 +34,7 @@ public class GwtWebApp implements EntryPoint {
         MainPanel mainPanel = injector.getMainPanel();
         // add for display
         RootLayoutPanel.get().add(mainPanel);
+        // load init data
+        injector.getEventBus().fireEvent(new LoadEvent());
     }
 }

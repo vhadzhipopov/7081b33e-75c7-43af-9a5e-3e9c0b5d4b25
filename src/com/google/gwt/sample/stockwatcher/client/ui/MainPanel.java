@@ -38,7 +38,7 @@ public class MainPanel extends Composite {
     @UiField
     FlowPanel currencyPanel;
 
-    Map<String, CurrencyWidget> currencyWidgets;
+    private Map<String, CurrencyWidget> currencyWidgets;
     private SimpleEventBus eventBus;
     private ModelHandler modelHandler;
 
@@ -53,8 +53,20 @@ public class MainPanel extends Composite {
 
     @UiHandler("addButton")
     void onAddButtonClick(ClickEvent event) {
+
         // retrieve textbox text
         String currencyText = textBox.getText();
+
+        if (!FieldVerifier.isValidSymbol(currencyText)) {
+            errorLabel.setText("Name must be 3 capital letters");
+            return;
+        }
+
+        if (currencyWidgets.get(currencyText) != null) {
+            errorLabel.setText("Already existing Currency : " + currencyText);
+            return;
+        }
+
         // send it to controller for handle business event
         eventBus.fireEvent(new AddCurrencyEvent(currencyText));
     }
@@ -73,16 +85,6 @@ public class MainPanel extends Composite {
 
     public void addCurrencyToPanel(Currency currency) {
         errorLabel.setText("");
-        if (!FieldVerifier.isValidSymbol(currency.getSymbol())) {
-            errorLabel.setText("Name must be max 4 characters long");
-            return;
-        }
-
-        if (currencyWidgets.get(currency.getSymbol()) != null) {
-            errorLabel.setText("Already existing Currency : " + currency.getSymbol());
-            return;
-        }
-
         if (!currency.getVisible())
             return;
 
@@ -102,20 +104,13 @@ public class MainPanel extends Composite {
         currencyPanel.remove(currencyWidget);
 
         currencyWidgets.remove(currency.getSymbol());
-
-
     }
 
-    public void removeAllCurrency() {
+    public void reloadCurrencyList() {
         // clear currency panel
         currencyPanel.clear();
         // clear references
         currencyWidgets.clear();
-    }
-
-    public void reloadCurrencyList() {
-        // clear all currency
-        removeAllCurrency();
         // retrieve new model
         List<Currency> all = modelHandler.getAll();
         // usae defered command for incremental UI refresh
